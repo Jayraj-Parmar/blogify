@@ -1,0 +1,68 @@
+<nav class="bg-gray-800 w-full sticky top-0">
+  <div class="max-w-6xl mx-auto">
+    <div class="flex md:flex-row flex-col justify-between">
+
+      <ul class="dark:text-white font-medium flex md:flex-row flex-col items-center py-3 gap-3.5">
+        <li>
+          <a class="tab block px-6 py-2 hover:bg-gray-700 hover:cursor-pointer rounded-md transition-colors duration-500 ease-in-out" href="/">Home</a>
+        </li>
+        <% if (locals.user) { %> 
+          <li>
+            <a class="tab block px-6 py-2 hover:bg-gray-700 hover:cursor-pointer rounded-md transition-colors duration-500 ease-in-out" href="/addblog">Add blog</a>
+          </li>
+          <li>
+            <a class="tab block px-6 py-2 hover:bg-gray-700 hover:cursor-pointer rounded-md transition-colors duration-500 ease-in-out" href="/yourblog">Your blog</a>
+          </li>
+        <% } %>
+      </ul>
+
+      <% if (!locals.user) { %> 
+        <ul class="dark:text-white font-medium flex md:flex-row flex-col items-center py-3 gap-3.5">
+          <li>
+            <a class="tab px-6 py-2 bg-blue-600 hover:cursor-pointer rounded-md" href="/user/signin">Signin</a>
+          </li>
+          <li>
+            <a class="tab block px-6 py-2 hover:bg-gray-700 hover:cursor-pointer rounded-md transition-colors duration-500 ease-in-out" href="/user/signup">Signup</a>
+          </li>
+        </ul>
+      <% } %>
+      <% if (locals.user) { %> 
+        <ul class="dark:text-white py-3 flex md:flex-row flex-col items-center gap-3.5">
+          <li>
+            <div class="relative">
+              <button id="dropdownToggle" class="py-2 px-4 flex items-center">
+                <span class="me-2"><%= user.username %> </span>
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="14" height="14" viewBox="0 0 256 256" xml:space="preserve">
+                  <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+                    <path d="M 90 24.25 c 0 -0.896 -0.342 -1.792 -1.025 -2.475 c -1.366 -1.367 -3.583 -1.367 -4.949 0 L 45 60.8 L 5.975 21.775 c -1.367 -1.367 -3.583 -1.367 -4.95 0 c -1.366 1.367 -1.366 3.583 0 4.95 l 41.5 41.5 c 1.366 1.367 3.583 1.367 4.949 0 l 41.5 -41.5 C 89.658 26.042 90 25.146 90 24.25 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: #fff; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                  </g>
+                </svg>
+              </button>
+              <ul class="p-1 bg-gray-700 text-white absolute right-0 min-w-[170px] rounded-md hidden" id="dropdownMenu">
+                <li>
+                  <a href="/user/reset-password" class="px-6 py-2 block hover:bg-gray-900 hover:cursor-pointer rounded-md transition-colors duration-500 ease-in-out">Reset Password</a>
+                </li>
+                <li>
+                  <a href="/user/logout" class="px-6 py-2 block hover:bg-gray-900 hover:cursor-pointer rounded-md transition-colors duration-500 ease-in-out">Logout</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <img class="inline-block h-7 w-7 rounded-full ring-2 ring-white" src="<%= user.profileImageUrl %>" alt="User" loading="lazy" />
+          </li>
+        </ul>
+      <% } %>
+    </div>
+  </div>
+</nav>
+
+<script>
+  document.getElementById("dropdownToggle").addEventListener("click", (e) => {
+  e.stopPropagation();
+  document.getElementById("dropdownMenu").classList.toggle("hidden");
+  });
+  document.addEventListener("click", () => {
+  document.getElementById("dropdownMenu").classList.add("hidden");
+  });
+</script>
