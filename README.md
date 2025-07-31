@@ -15,3 +15,5 @@
 - Add blog
 - comment on blogs
 - Responsive UI with Tailwind & EJS
+
+[Live Demo](https://blogify-3cr7.onrender.com)
